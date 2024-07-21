@@ -11,7 +11,7 @@ export default function ClientComponent({ initialHtml }) {
 	useEffect(() => {
 		async function fetchContent() {
 			try {
-				const response = await fetch("/api/generate", {
+				const response = await fetch("/api", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({ prompt: "Your updated Gemini prompt" }), // Dynamic prompt or pass as a parameter
