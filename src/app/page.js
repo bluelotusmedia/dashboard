@@ -1,53 +1,37 @@
-'use client';
-import { useState, useEffect } from "react";
+// page.js
+"use client";
 
-function LoadingSpinner() {
-  return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-green-500"></div>
-    </div>
-  );
+import { useState } from "react"; // Removed useEffect
+
+async function fetchResponse(prompt) {
+	const response = await fetch("/api", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ prompt }),
+	});
+
+	if (!response.ok) {
+		throw new Error("Failed to fetch response");
+	}
+
+	return response.json();
 }
 
+export default async function Page() {
+	const [text, setText] = useState(null);
+	const [error, setError] = useState(null);
 
-export default function Page() {
-  const [htmlContent, setHtmlContent] = useState("<h1>Loading...</h1>");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+	try {
+		const data = await fetchResponse("What is the capital of Colorado?");
+		setText(data.text);
+	} catch (error) {
+		setError(error.message);
+	}
 
-  useEffect(() => {
-    async function fetchContent() {
-      try {
-        const response = await fetch("/api", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: "Summarize the news on the page." }),
-        });
+	if (error) return <p className="text-red-500">Error: {error}</p>;
+	if (!text) return <p>Loading...</p>; // Basic loading state
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok.");
-        }
-
-        const data = await response.json();
-        setHtmlContent(data.html);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchContent(); // Initial fetch
-    const intervalId = setInterval(fetchContent, 30000);
-    return () => clearInterval(intervalId);
-  }, []);
-
-  if (loading)
-    return <LoadingSpinner />;
-
-  if (error) return <p className="text-red-500">Error: {error}</p>;
-
-  return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+	return <div>{text}</div>;
 }
-
-
