@@ -1,37 +1,29 @@
-// page.js
-"use client";
+"use client"; // This indicates it's a Client Component
+import { useState, useEffect } from "react";
 
-import { useState } from "react"; // Removed useEffect
+export default function Home() {
+	const [data, setData] = useState([]);
 
-async function fetchResponse(prompt) {
-	const response = await fetch("/api", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({ prompt }),
-	});
+	useEffect(() => {
+		async function fetchData() {
+			const res = await fetch("https://jsonplaceholder.typicode.com/users");
+			const data = await res.json();
+			setData(data);
+		}
 
-	if (!response.ok) {
-		throw new Error("Failed to fetch response");
-	}
+		fetchData(); // Call the async function inside useEffect
+	}, []); // Empty dependency array ensures it runs only once after initial render
 
-	return response.json();
-}
-
-export default async function Page() {
-	const [text, setText] = useState(null);
-	const [error, setError] = useState(null);
-
-	try {
-		const data = await fetchResponse("What is the capital of Colorado?");
-		setText(data.text);
-	} catch (error) {
-		setError(error.message);
-	}
-
-	if (error) return <p className="text-red-500">Error: {error}</p>;
-	if (!text) return <p>Loading...</p>; // Basic loading state
-
-	return <div>{text}</div>;
+	return (
+		<div>
+			<h1>Dummy Data</h1>
+			<ul>
+				{data.map((item) => (
+					<li key={item.id}>
+						{item.name} - {item.email}
+					</li>
+				))}
+			</ul>
+		</div>
+	);
 }
