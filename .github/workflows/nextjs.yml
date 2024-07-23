@@ -23,7 +23,8 @@ jobs:
           node-version: "18.17.0" # Specify the required Node.js version
 
       - name: Set environment variable
-        run: echo "NEXT_PUBLIC_GEMINI_API_KEY=${{ secrets.NEXT_PUBLIC_GEMINI_API_KEY }}" >> $GITHUB_ENV
+        run: echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env.local
+
 
       - name: Install dependencies
         run: npm install
