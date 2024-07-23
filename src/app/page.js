@@ -44,7 +44,7 @@ async function fetchGeminiJoke() {
 			safetySettings,
 		});
 		const result = await model.generateContent(
-			"Tell me a joke about a programmer."
+			"Tell me a randomly made up joke about a programmer."
 		);
 		const geminiResponse = await result.response.text();
 		return geminiResponse;
