@@ -12,9 +12,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-  # Runs on a schedule (every 5 minutes)
+  # Runs on a schedule (every 2 hours)
   schedule:
-    - cron: "* * * * *"
+    - cron: "0 */2 * * *"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
