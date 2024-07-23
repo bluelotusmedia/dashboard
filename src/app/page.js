@@ -68,7 +68,7 @@ export default function Home() {
 
 	return (
 		<main className="gemini-joke">
-			<h1 className="gemini-joke__title">Gemini Pro Joke</h1>
+			<h1 className="gemini-joke__title">Gemini Pro Programmer Joke</h1>
 			{isLoading && <p className="gemini-joke__loader">Loading joke...</p>}
 			{error && <p className="gemini-joke__error">Error: {error}</p>}
 			{!isLoading && !error && (
