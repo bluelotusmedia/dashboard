@@ -7,7 +7,11 @@ import {
 	HarmCategory,
 } from "@google/generative-ai";
 
+const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+console.log(GEMINI_API_KEY);
 const MODEL_NAME = "gemini-1.5-pro";
+
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 export default function Home() {
 	const [geminiResponse, setGeminiResponse] = useState(null);
@@ -44,14 +48,11 @@ export default function Home() {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				console.log(process.env.GEMINI_API_KEY);
-				const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 				const model = await genAI.getGenerativeModel({
 					model: MODEL_NAME,
 					generationConfig,
 					safetySettings,
 				});
-				
 				const result = await model.generateContent(
 					"Tell me a joke about a programmer."
 				);
@@ -68,7 +69,7 @@ export default function Home() {
 
 	return (
 		<main className="gemini-joke">
-			<h1 className="gemini-joke__title">Gemini Pro Programmer Joke</h1>
+			<h1 className="gemini-joke__title">Gemini Pro Joke</h1>
 			{isLoading && <p className="gemini-joke__loader">Loading joke...</p>}
 			{error && <p className="gemini-joke__error">Error: {error}</p>}
 			{!isLoading && !error && (
