@@ -17,7 +17,7 @@ export default function Home() {
 	const generationConfig = {
 		stopSequences: ["red"],
 		maxOutputTokens: 100000,
-		temperature: 0	.9,
+		temperature: 0.9,
 		topP: 0.1,
 		topK: 16,
 	};
