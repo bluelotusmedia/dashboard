@@ -1,5 +1,3 @@
-// This is a server component
-
 import {
 	GoogleGenerativeAI,
 	HarmBlockThreshold,
@@ -51,6 +49,7 @@ async function fetchGeminiJoke() {
 		const geminiResponse = await result.response.text();
 		return geminiResponse;
 	} catch (err) {
+		console.error("Error fetching joke:", err);
 		return null;
 	}
 }
