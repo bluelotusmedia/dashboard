@@ -83,12 +83,12 @@ jobs:
         run: env
 
       - name: Verify GEMINI_API_KEY
-        run: echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}"
+        run: echo "GEMINI_API_KEY=${{ secrets.NEXT_PUBLIC_GEMINI_API_KEY }}"
 
       - name: Build project
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.NEXT_PUBLIC_GEMINI_API_KEY }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
