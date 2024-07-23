@@ -12,10 +12,10 @@ const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const generationConfig = {
 	stopSequences: ["red"],
 	maxOutputTokens: 100000,
-	temperature: 0.9,
-	topP: 0.1,
-	topK: 16,
-};
+	temperature: 1.0, // Increase temperature for more randomness
+	topP: 0.95, // Increase topP to include more diverse tokens
+	topK: 50, // Increase topK to consider a larger pool of tokens
+ };
 
 const safetySettings = [
 	{
