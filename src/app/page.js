@@ -44,6 +44,7 @@ export default function Home() {
 	useEffect(() => {
 		async function fetchData() {
 			try {
+				console.log(process.env.GEMINI_API_KEY);
 				const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 				const model = await genAI.getGenerativeModel({
 					model: MODEL_NAME,
